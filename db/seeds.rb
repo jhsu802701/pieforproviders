@@ -68,6 +68,27 @@ big_horn_cty_mt = County.find_or_create_by!(name: 'Big Horn', state: montana)
 hardin_zipcode = Zipcode.first_or_create!(city: 'Hardin', county: big_horn_cty_mt, state: big_horn_cty_mt.state, code: '12345')
 
 # ---------------------------------------------
+# Subsidy Rules
+# ---------------------------------------------
+
+rule_effective_date = Faker::Date.between(from: 10.years.ago, to: Time.zone.today)
+
+il_sr_rule = IllinoisSubsidyRule.first_or_create!
+
+sr_rule_1 = SubsidyRule.first_or_create!(
+  name: 'Rule 1',
+  max_age: 18,
+  license_type: Licenses.types.values.sample,
+  county: big_horn_cty_mt,
+  state: big_horn_cty_mt.state,
+  effective_on: rule_effective_date,
+  expires_on: rule_effective_date + rand(1..10).years,
+  subsidy_ruleable: il_sr_rule
+)
+
+puts_records_in_db(SubsidyRule)
+
+# ---------------------------------------------
 # Businesses
 # ---------------------------------------------
 
@@ -111,27 +132,6 @@ mubiru = child_named('Mubiru Karstensen')
 tarq = child_named('Tarquinius Kelly')
 
 puts_records_in_db(Child)
-
-# ---------------------------------------------
-# Subsidy Rules
-# ---------------------------------------------
-
-rule_effective_date = Faker::Date.between(from: 10.years.ago, to: Time.zone.today)
-
-il_sr_rule = IllinoisSubsidyRule.first_or_create!
-
-sr_rule_1 = SubsidyRule.first_or_create!(
-  name: 'Rule 1',
-  max_age: 18,
-  license_type: Licenses.types.values.sample,
-  county: big_horn_cty_mt,
-  state: big_horn_cty_mt.state,
-  effective_on: rule_effective_date,
-  expires_on: rule_effective_date + rand(1..10).years,
-  subsidy_ruleable: il_sr_rule
-)
-
-puts_records_in_db(SubsidyRule)
 
 # ---------------------------------------------
 # Attendance
