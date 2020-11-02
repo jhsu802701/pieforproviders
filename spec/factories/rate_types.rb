@@ -7,6 +7,27 @@ FactoryBot.define do
     amount { Faker::Number.decimal(l_digits: 3, r_digits: 2) }
     max_duration { Faker::Number.decimal(l_digits: 2, r_digits: 2) }
     threshold { Faker::Number.decimal(l_digits: 2, r_digits: 2) }
+
+    factory :rate_type_illinois_half_day_under_3 do
+      name { 'Illinois Half Day Rate Under 3' }
+      max_duration { 4.hours.to_i }
+      threshold { 0.799 }
+    end
+    factory :rate_type_illinois_half_day_over_3 do
+      name { 'Illinois Half Day Rate Over 3' }
+      max_duration { 4.hours.to_i }
+      threshold { 0.799 }
+    end
+    factory :rate_type_illinois_full_day_under_3 do
+      name { 'Illinois Full Day Rate Under 3' }
+      max_duration { 8.hours.to_i }
+      threshold { 0.799 }
+    end
+    factory :rate_type_illinois_full_day_over_3 do
+      name { 'Illinois Full Day Rate Over 3' }
+      max_duration { 8.hours.to_i }
+      threshold { 0.799 }
+    end
   end
 end
 

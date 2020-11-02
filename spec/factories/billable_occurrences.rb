@@ -3,8 +3,17 @@
 FactoryBot.define do
   factory :billable_occurrence do
     child_approval
+
     factory :billable_attendance do
       association :billable, factory: :attendance
+    end
+
+    factory :billable_attendance_illinois_half_day_this_month do
+      association :billable, factory: :illinois_half_day_this_month
+    end
+
+    factory :billable_attendance_illinois_full_day_this_month do
+      association :billable, factory: :illinois_full_day_this_month
     end
   end
 end

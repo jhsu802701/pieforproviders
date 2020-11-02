@@ -11,6 +11,16 @@ FactoryBot.define do
     state { county.state }
     factory :subsidy_rule_for_illinois do
       association :subsidy_ruleable, factory: :illinois_subsidy_rule
+      factory :subsidy_rule_for_illinois_under_3 do
+        rate_types do
+          [create(:rate_type_illinois_half_day_under_3), create(:rate_type_illinois_full_day_under_3)]
+        end
+      end
+      factory :subsidy_rule_for_illinois_over_3 do
+        rate_types do
+          [create(:rate_type_illinois_half_day_over_3), create(:rate_type_illinois_full_day_over_3)]
+        end
+      end
     end
   end
 end

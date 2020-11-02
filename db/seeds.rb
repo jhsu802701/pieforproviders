@@ -63,12 +63,12 @@ puts_records_in_db(User)
 # Locations
 # ---------------------------------------------
 
-montana = State.find_or_create_by!(name: 'Montana', abbr: 'MT')
-big_horn_cty_mt = County.find_or_create_by!(name: 'Big Horn', state: montana)
-hardin_zipcode = Zipcode.first_or_create!(city: 'Hardin', county: big_horn_cty_mt, state: big_horn_cty_mt.state, code: '12345')
+illinois = State.find_or_create_by!(name: 'Illinois', abbr: 'IL')
+cook_county = County.find_or_create_by!(name: 'Cook', state: illinois)
+chicago_loop_zip = Zipcode.first_or_create!(city: 'Chicago', county: cook_county, state: cook_county.state, code: '60606')
 
 # ---------------------------------------------
-# Subsidy Rules
+# Subsidy Rules w/ Rate Types
 # ---------------------------------------------
 
 rule_effective_date = Faker::Date.between(from: 10.years.ago, to: Time.zone.today)
@@ -79,11 +79,25 @@ sr_rule_1 = SubsidyRule.first_or_create!(
   name: 'Rule 1',
   max_age: 18,
   license_type: Licenses.types.values.sample,
-  county: big_horn_cty_mt,
-  state: big_horn_cty_mt.state,
+  county: cook_county,
+  state: cook_county.state,
   effective_on: rule_effective_date,
   expires_on: rule_effective_date + rand(1..10).years,
-  subsidy_ruleable: il_sr_rule
+  subsidy_ruleable: il_sr_rule,
+  rate_types: [
+    RateType.create!(
+      amount_cents: Faker::Number.decimal(l_digits: 2, r_digits: 2),
+      max_duration: 4.hours.to_i,
+      name: 'Half Day',
+      threshold: 0.799
+    ),
+    RateType.create!(
+      amount_cents: Faker::Number.decimal(l_digits: 2, r_digits: 2),
+      max_duration: 8.hours.to_i,
+      name: 'Full Day',
+      threshold: 0.799
+    )
+  ]
 )
 
 puts_records_in_db(SubsidyRule)
@@ -94,8 +108,8 @@ puts_records_in_db(SubsidyRule)
 
 @business = Business.where(name: 'Happy Seedlings Childcare', user: @user_kate).first_or_create(
   license_type: Licenses.types.keys.first,
-  county: big_horn_cty_mt,
-  zipcode: hardin_zipcode
+  county: cook_county,
+  zipcode: chicago_loop_zip
 )
 
 puts_records_in_db(Business)
