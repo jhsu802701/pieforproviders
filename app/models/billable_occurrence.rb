@@ -4,6 +4,7 @@
 class BillableOccurrence < UuidApplicationRecord
   belongs_to :child_approval
   belongs_to :billable, polymorphic: true, dependent: :destroy
+  belongs_to :attendance, -> { where(billable_occurrences: { billable_type: 'Attendance' }) }, foreign_key: :billable_id, optional: true, inverse_of: :billable_occurrence
   has_many :billable_occurrence_rate_types, dependent: :destroy
   has_many :rate_types, through: :billable_occurrence_rate_types
 

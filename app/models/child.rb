@@ -6,6 +6,8 @@ class Child < UuidApplicationRecord
 
   has_many :child_approvals, dependent: :destroy
   has_many :approvals, through: :child_approvals
+  has_many :billable_occurrences, through: :child_approvals
+  has_many :attendances, through: :billable_occurrences
 
   validates :active, inclusion: { in: [true, false] }
   validates :date_of_birth, presence: true

@@ -124,18 +124,24 @@ def child_named(full_name, min_birthday: MIN_BIRTHDAY,
                 max_birthday: MAX_BIRTHDAY,
                 business: @business)
   effective_date = Faker::Date.between(from: 1.year.ago, to: Time.zone.today)
-  Child.find_or_create_by!(business: business,
-                           full_name: full_name,
-                           date_of_birth: Faker::Date.between(from: max_birthday, to: min_birthday),
-                           approvals: [
-                             Approval.create!(
-                               case_number: Faker::Number.number(digits: 10),
-                               copay: Faker::Number.decimal(l_digits: 3, r_digits: 2),
-                               copay_frequency: [nil].concat(Approval::COPAY_FREQUENCIES).sample,
-                               effective_on: effective_date,
-                               expires_on: effective_date + 1.year
-                             )
-                           ])
+  child = Child.find_or_create_by!(business: business,
+                                   full_name: full_name,
+                                   date_of_birth: Faker::Date.between(from: max_birthday, to: min_birthday),
+                                   approvals: [
+                                     Approval.create!(
+                                       case_number: Faker::Number.number(digits: 10),
+                                       copay: Faker::Number.decimal(l_digits: 3, r_digits: 2),
+                                       copay_frequency: [nil].concat(Approval::COPAY_FREQUENCIES).sample,
+                                       effective_on: effective_date,
+                                       expires_on: effective_date + 1.year
+                                     )
+                                   ])
+  child.child_approvals.each do |child_approval|
+    child_approval.child_approval_rate_types.each do |child_approval_rate_type|
+      child_approval_rate_type.update!(approved_amount: rand(1..18))
+    end
+  end
+  child
 end
 
 maria = child_named('Maria Baca')
