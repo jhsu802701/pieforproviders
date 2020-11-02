@@ -6,9 +6,15 @@ class Approval < UuidApplicationRecord
 
   has_many :child_approvals, dependent: :destroy
   has_many :children, through: :child_approvals
+  has_many :child_approval_rate_types, through: :child_approvals
+  has_many :billable_occurrences, through: :child_approvals
+  has_many :rate_types, through: :child_approvals
 
   validates :effective_on, date_param: true
   validates :expires_on, date_param: true
+
+  accepts_nested_attributes_for :child_approvals
+  accepts_nested_attributes_for :child_approval_rate_types
 
   # need to do it this way because postgres/rails enums don't allow for nils
   # and there's a possibility we'll be handling approvals without copays, so

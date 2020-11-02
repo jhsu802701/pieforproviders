@@ -9,6 +9,8 @@ class ChildApproval < UuidApplicationRecord
   has_many :rate_types, through: :child_approval_rate_types
 
   delegate :user, to: :child
+
+  accepts_nested_attributes_for :child_approval_rate_types
 end
 
 # == Schema Information

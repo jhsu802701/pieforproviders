@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :child_approval_rate_type do
     child_approval
     rate_type
+    approved_amount { rand(1..18) }
   end
 end
 
