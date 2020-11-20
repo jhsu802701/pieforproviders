@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+source ~/.rvm/scripts/rvm # Activate RVM
+
+RUBY_VERSION=`cat .ruby-version`
+echo $RUBY_VERSION
+
+echo '-------------------------'
+echo "rvm install $RUBY_VERSION"
+rvm install $RUBY_VERSION
+
+echo ''
+echo '---------------------'
+echo "rvm use $RUBY_VERSION"
+rvm use $RUBY_VERSION
+
+echo ''
+echo '-------------------------'
+echo "rvm default $RUBY_VERSION"
+rvm default $RUBY_VERSION
+
+echo ''
+echo '-------'
+echo 'ruby -v'
+ruby -v
