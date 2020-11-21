@@ -9,16 +9,19 @@ echo $RUBY_VERSION
 echo '-------------------------'
 echo "rvm install $RUBY_VERSION"
 rvm install $RUBY_VERSION
-
-echo ''
-echo '---------------------'
-echo "rvm use $RUBY_VERSION"
-rvm use $RUBY_VERSION
+wait
 
 echo ''
 echo '-------------------------'
 echo "rvm default $RUBY_VERSION"
 rvm default $RUBY_VERSION
+wait
+
+echo ''
+echo '---------------------'
+echo "rvm use $RUBY_VERSION"
+rvm use $RUBY_VERSION
+wait
 
 echo ''
 echo '-------'
