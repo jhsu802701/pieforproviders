@@ -7,3 +7,11 @@ source ~/.rvm/scripts/rvm # Activate RVM
 echo '-------'
 echo 'ruby -v'
 ruby -v
+
+echo '------------------------------'
+echo 'sudo apt-get install -y nodejs'
+sudo apt-get install -y nodejs
+
+echo '-------'
+echo 'node -v'
+node -v
