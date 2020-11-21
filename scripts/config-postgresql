@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+echo 'yourlocalpostgresuser' > tmp/PGUSER.txt
+echo 'yourlocalpostgrespassword' > tmp/PGPASSWORD.txt
+PGUSER=`cat tmp/PGUSER.txt`
+PGPASSWORD=`cat tmp/PGPASSWORD.txt`
+
+echo '---------------------------------------------------------------'
+echo "CREATE ROLE $PGUSER WITH CREATEDB LOGIN PASSWORD '$PGPASSWORD';"
+sudo -u postgres psql -c"CREATE ROLE $PGUSER WITH CREATEDB LOGIN PASSWORD '$PGPASSWORD';"
+wait
+
+echo '----------------------------------'
+echo "ALTER USER $PGUSER WITH SUPERUSER;"
+sudo -u postgres psql -c"ALTER USER $PGUSER WITH SUPERUSER;"
+wait
+
+echo '---------------------------------------------------'
+echo "CREATE DATABASE pie_development WITH OWNER=$PGUSER;"
+sudo -u postgres psql -c"CREATE DATABASE pie_development WITH OWNER=$PGUSER;"
+wait
+
+echo '--------------------------------------------'
+echo "CREATE DATABASE pie_test WITH OWNER=$PGUSER;"
+sudo -u postgres psql -c"CREATE DATABASE pie_test WITH OWNER=$PGUSER;"
+wait
+
+echo '---------------------------------------------------'
+echo 'sudo -u postgres psql -c"create extension pgcrypto"'
+sudo -u postgres psql -c"create extension pgcrypto"
+wait
+

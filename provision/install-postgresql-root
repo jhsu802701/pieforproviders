@@ -4,9 +4,9 @@ set -e
 echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo 'BEGIN installing and configuring PostgreSQL for Ruby on Rails'
 
-echo '-----------------------------'
-echo 'apt-get install -y postgresql'
-apt-get install -y postgresql
+echo '---------------------------------------'
+echo 'apt-get install -y postgresql libpq-dev'
+apt-get install -y postgresql libpq-dev
 
 PG_VERSION="$(ls /etc/postgresql)"
 DATE=`date +%Y%m%d-%H%M%S-%3N`

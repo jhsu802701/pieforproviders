@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+DATE=`date +%Y%m%d-%H%M%S-%3N`
+mkdir log/$DATE
+
+provision/main 2>&1 | tee log/$DATE/provision.log
+wait
+
+scripts/setup 2>&1 | tee log/$DATE/setup.log
+wait

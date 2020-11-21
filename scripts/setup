@@ -1,0 +1,43 @@
+#!/bin/bash
+set -e
+
+source ~/.rvm/scripts/rvm # Activate RVM
+wait
+
+echo 'yourlocalpostgresuser' > tmp/PGUSER.txt
+echo 'yourlocalpostgrespassword' > tmp/PGPASSWORD.txt
+PGUSER=`cat tmp/PGUSER.txt`
+PGPASSWORD=`cat tmp/PGPASSWORD.txt`
+
+echo '-------------------'
+echo 'gem install bundler'
+gem install bundler
+wait
+
+echo '--------------'
+echo 'bundle install'
+bundle install
+wait
+
+# Configure .env
+STR_RAILS_SECRET=`rails secret`
+STR_JWT_DEF="DEVISE_JWT_SECRET_KEY=$STR_RAILS_SECRET"
+echo "$STR_JWT_DEF" > .env
+echo '' >> .env
+echo 'PGUSER=yourlocalpostgresuser' >> .env
+echo 'PGPASSWORD=yourlocalpostgrespassword' >> .env
+
+sudo scripts/config-postgresql
+
+echo '---------------------------------'
+echo 'BEGIN: bundle exec rails db:setup'
+echo '---------------------------------'
+bundle exec rails db:setup
+wait
+echo '-------------------------------'
+echo 'END: bundle exec rails db:setup'
+echo '-------------------------------'
+
+echo '----------------------'
+echo 'bundle exec rspec spec'
+bundle exec rspec spec
