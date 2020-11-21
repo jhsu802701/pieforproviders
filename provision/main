@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+provision/install-rvm-user
+source ~/.rvm/scripts/rvm # Activate RVM
+
+echo '-------'
+echo 'ruby -v'
+ruby -v
