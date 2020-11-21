@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+
+echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+echo 'BEGIN installing and configuring PostgreSQL for Ruby on Rails'
+
+echo '-----------------------------'
+echo 'apt-get install -y postgresql'
+apt-get install -y postgresql
+
+PG_VERSION="$(ls /etc/postgresql)"
+DATE=`date +%Y%m%d-%H%M%S-%3N`
+
+echo '--------------------------------------'
+echo 'Backing up the old PostgreSQL settings'
+PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
+PG_CONF_ORIG="/etc/postgresql/$PG_VERSION/main/postgresql-$DATE.conf"
+PG_HBA="/etc/postgresql/$PG_VERSION/main/pg_hba.conf"
+PG_HBA_ORIG="/etc/postgresql/$PG_VERSION/main/pg_hba-$DATE.conf"
+cp $PG_CONF $PG_CONF_ORIG
+cp $PG_HBA $PG_HBA_ORIG
+
+echo '--------------------'
+echo "Configuring $PG_CONF"
+sed -i 's/^port = .*/port = 5432/' $PG_CONF
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" $PG_CONF
+
+echo '-------------------'
+echo "Configuring $PG_HBA"
+echo "# Database administrative login by Unix domain socket" | tee $PG_HBA
+echo "local   all             postgres                                peer" | tee -a $PG_HBA
+echo "" | tee -a $PG_HBA
+echo "# TYPE  DATABASE        USER            ADDRESS                 METHOD" | tee -a $PG_HBA
+echo "" | tee -a $PG_HBA
+echo "# local is for Unix domain socket connections only" | tee -a $PG_HBA
+echo "local   all             all                                     md5" | tee -a $PG_HBA
+echo "" | tee -a $PG_HBA
+echo "# IPv4 local connections:" | tee -a $PG_HBA
+echo "host    all             all             0.0.0.0/0            md5" | tee -a $PG_HBA
+echo "" | tee -a $PG_HBA
+echo "# IPv6 local connections:" | tee -a $PG_HBA
+echo "host    all             all             ::1/128                 md5" | tee -a $PG_HBA
+echo "" | tee -a $PG_HBA
+echo "host    all             all             all                     md5" | tee -a $PG_HBA
+
+echo '--------------------------'
+echo 'service postgresql restart'
+service postgresql restart
+

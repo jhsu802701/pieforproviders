@@ -1,12 +1,18 @@
 #!/bin/bash
 set -e
 
+echo '-------------------'
+echo 'sudo apt-get update'
+sudo apt-get update
+
 provision/install-rvm-user
 source ~/.rvm/scripts/rvm # Activate RVM
 
 echo '-------'
 echo 'ruby -v'
 ruby -v
+
+sudo provision/install-postgresql-root
 
 echo '------------------------------'
 echo 'sudo apt-get install -y nodejs'
