@@ -8,16 +8,35 @@ sudo apt-get update
 provision/install-rvm-user
 source ~/.rvm/scripts/rvm # Activate RVM
 
+sudo provision/install-postgresql-root
+
+echo '----------------------------------'
+echo 'sudo apt-get install -y nodejs npm'
+sudo apt-get install -y nodejs npm
+
+echo '------------------------'
+echo 'sudo npm install yarn -g'
+sudo npm install yarn -g
+
+sudo apt-get install -y graphviz
+
+echo '--------------'
+echo 'psql --version'
+psql --version
+
 echo '-------'
 echo 'ruby -v'
 ruby -v
 
-sudo provision/install-postgresql-root
-
-echo '------------------------------'
-echo 'sudo apt-get install -y nodejs'
-sudo apt-get install -y nodejs
-
 echo '-------'
 echo 'node -v'
 node -v
+
+echo '-------------'
+echo 'npm --version'
+npm --version
+
+echo '--------------'
+echo 'yarn --version'
+yarn --version
+
