@@ -14,9 +14,7 @@ echo '----------------------------------'
 echo 'sudo apt-get install -y nodejs npm'
 sudo apt-get install -y nodejs npm
 
-echo '------------------------'
-echo 'sudo npm install yarn -g'
-sudo npm install yarn -g
+provision/install-yarn-user
 
 sudo apt-get install -y graphviz
 
