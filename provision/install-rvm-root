@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+echo '--------------'
+echo 'apt-get update'
+apt-get update
+
+# Needed for RVM itself:
+echo '-----------------------------------------'
+echo 'BEGIN: installing packages needed for RVM'
+echo '-----------------------------------------'
+apt-get install -y curl gpg
+echo '---------------------------------------'
+echo 'END: installing packages needed for RVM'
+echo '---------------------------------------'
+
+# Needed to install Ruby versions in RVM
+echo '---------------------------------------------------------------------'
+echo 'BEGIN: installing packages needed for installing Ruby versions in RVM'
+echo '---------------------------------------------------------------------'
+apt-get install -y gawk autoconf automake bison libgdbm-dev libncurses5-dev \
+libtool libyaml-dev libgmp-dev libreadline-dev
+echo '-------------------------------------------------------------------'
+echo 'END: installing packages needed for installing Ruby versions in RVM'
+echo '-------------------------------------------------------------------'
