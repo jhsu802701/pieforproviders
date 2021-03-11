@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+# NOTE: This script is intended for use in Docker.
+
+bin/gem_install_bundler
+bin/migrate
+
+echo '-----------------------------------------------'
+echo 'BEGIN: bundle exec rspec --require rails_helper'
+echo '-----------------------------------------------'
+bundle exec rspec --require rails_helper
+echo '---------------------------------------------'
+echo 'END: bundle exec rspec --require rails_helper'
+echo '---------------------------------------------'
