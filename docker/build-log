@@ -39,7 +39,7 @@ echo '##############################'
 echo 'FINISHED: docker-compose build'
 echo '##############################'
 
-# docker/bundle_install
+docker/bundle_install
 
 # echo '------------------------------------------------------------'
 # echo 'BEGIN: bundle exec rake db:create db:migrate db:test:prepare'
