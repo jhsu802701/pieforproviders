@@ -47,7 +47,7 @@
     "cypress": "^6.6.0",
     "cypress-file-upload": "^5.0.2",
     "dayjs": "^1.10.4",
-    "eslint": "^6.6.0",
+    "eslint": "^7.21.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-prettier": "^3.3.1",
