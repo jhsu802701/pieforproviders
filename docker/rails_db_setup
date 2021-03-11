@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+docker/run bin/rails_db_setup

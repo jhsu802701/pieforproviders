@@ -3,9 +3,7 @@ set -e
 
 # NOTE: This script is intended for use in Docker.
 
-echo '-------------------------'
-echo 'gem install bundler:2.1.4'
-gem install bundler:2.1.4
+bin/gem_install_bundler
 
 echo '---------------------'
 echo 'BEGIN: bundle install'

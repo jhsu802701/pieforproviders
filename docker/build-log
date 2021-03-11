@@ -41,10 +41,4 @@ echo '##############################'
 
 docker/bundle_install
 
-# echo '------------------------------------------------------------'
-# echo 'BEGIN: bundle exec rake db:create db:migrate db:test:prepare'
-# echo '------------------------------------------------------------'
-# docker/run bundle exec rake db:create db:migrate db:test:prepare
-# echo '----------------------------------------------------------'
-# echo 'END: bundle exec rake db:create db:migrate db:test:prepare'
-# echo '----------------------------------------------------------'
+docker/rails_db_setup

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+# NOTE: This script is intended for use in Docker.
+
+bin/gem_install_bundler
+
+echo '---------------------------------'
+echo 'BEGIN: bundle exec rails db:setup'
+echo '---------------------------------'
+bundle exec rails db:setup
+echo '-------------------------------'
+echo 'END: bundle exec rails db:setup'
+echo '-------------------------------'
