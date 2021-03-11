@@ -48,6 +48,9 @@ spec/cypress/screenshots
 # yarn releases
 .yarn
 
+# rails-erd output
+pie_erd.pdf
+
 Dockerfile
 init.sql
 .env-docker/development/database
